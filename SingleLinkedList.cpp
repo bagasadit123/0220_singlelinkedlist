@@ -61,11 +61,6 @@ public:
     {
         return (START == NULL);
     }
-     bool listempty()
-    {
-        return (START == NULL);
-    }
-
     bool search(int nim, Node *&previous, Node *&current)
 {
     previous = START;
@@ -94,9 +89,8 @@ bool delNode(int nim)
     delete current;
     return true;
 }
-
 void traverse()
-{
+ {
     if (listempty())
     {
         cout << "\nList kosong\n";
@@ -113,7 +107,8 @@ void traverse()
         }
         cout << endl;
     }
-}
+ }
+};
 int main()
 {
     LinkedList mhs;
@@ -131,6 +126,62 @@ int main()
 
         cout << "\nMasukkan pilihan (1-5): ";
         cin >> ch;
-    }
+    
+        switch (ch)
+        {
+        case '1':
+            mhs.addNode();
+            break;
+
+        case '2':
+            if (mhs.listempty())
+            {
+                cout << "\nList Kosong" << endl;
+                break;
+            }
+
+            cout << "\nMasukkan no mahasiswa yang akan dihapus : ";
+            cin >> nim;
+
+            if (mhs.delNode(nim) == false)
+                cout << "\nData tidak ditemukan" << endl;
+            else
+                cout << "\nData dengan nomor mahasiswa " << nim << " berhasil dihapus\n";
+            break;
+
+        case '3':
+            mhs.traverse();
+            break;
+
+        case '4':
+        {
+            if (mhs.listempty())
+            {
+                cout << "\nList Kosong\n";
+                break;
+            }
+
+            Node *previous,*current;
+            cout << "\nMasukkan no mahasiswa yang dicari : ";
+            cin >> nim;
+
+            if (mhs.search(nim, previous, current) == false)
+                cout << "\nData tidak ditemukan\n";
+            else
+            {
+                cout << "\nData ditemukan\n";
+                cout << "NIM Mahasiswa : " << current->noMhs << endl;
+            }
+            break;
+        }
+
+        case '5':
+            break;
+
+        default:
+            cout << "\nPilihan salah!\n";
+        }
+    } while (ch != '5');
+
+    return 0;
 }
-};
